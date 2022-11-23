@@ -87,7 +87,24 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "08bc153bc2674a4d9468eaaa954e018b",
+      application: "lab9"
+    });
+  </script>
+                        
+
+  <script>              
+    TrackJS.track('Testing TrackJS!');
+    class ValidationError extends Error {
+      constructor(message) {
+        super(message); // (1)
+        this.name = "ValidationError"; // (2)
+      }
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -100,8 +117,114 @@
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
+    try {
+      alert( 'try' );
+      const x = 5;
+      const y = 10;
+
+      if (x > y) {
+        alert( 'Correct computation' );
+      }
+      else {
+        throw new ValidationError("Wrong computation");
+      }
+    } 
+    catch(err) {
+      alert( 'catch' );
+      alert(err.message); // Whoops!
+      alert(err.name); // ValidationError
+      alert(err.stack); // a list of nested calls with line numbers for each
+    }
+    finally {
+      alert( 'finally' );
+    }
+
+
     // Start your code here
     // You may move this JS to another file if you wish
+    errorBtns[0].addEventListener("click", () => {
+      console.log("Console log");
+    });
+
+    errorBtns[1].addEventListener("click", () => {
+      console.error("Console error");
+    });
+
+    errorBtns[2].addEventListener("click", () => {
+      console.count();
+    });
+
+    errorBtns[3].addEventListener("click", () => {
+      console.warn("warn");
+    });
+
+    errorBtns[4].addEventListener("click", () => {
+      const x = 5;
+      const y = 3;
+      const reason = 'x is expected to be less than y';
+      console.assert(x < y, {x, y, reason});
+    });
+
+    errorBtns[5].addEventListener("click", () => {
+      console.clear();
+    });
+
+    errorBtns[6].addEventListener("click", () => {
+      console.dir(document.head);
+    });
+
+    errorBtns[7].addEventListener("click", () => {
+      console.dirxml(document);
+    });
+
+    errorBtns[8].addEventListener("click", () => {
+      console.group("grop")
+    });
+
+    errorBtns[9].addEventListener("click", () => {
+      console.groupEnd("grop")
+    });
+
+    errorBtns[10].addEventListener("click", () => {
+      var people = [
+  {
+    first: 'René',
+    last: 'Magritte',
+  },
+  {
+    first: 'Chaim',
+    last: 'Soutine',
+    birthday: '18930113',
+  },
+  {
+    first: 'Henri',
+    last: 'Matisse',
+  }
+];
+      console.table(people);
+    });
+
+    errorBtns[11].addEventListener("click", () => {
+      console.time();
+    });
+
+    errorBtns[12].addEventListener("click", () => {
+      console.timeEnd();
+    });
+
+    errorBtns[13].addEventListener("click", () => {
+      const first = () => { second(); };
+      const second = () => { third(); };
+      const third = () => { fourth(); };
+      const fourth = () => { console.trace(); };
+      first();
+    });
+
+    errorBtns[14].addEventListener("click", () => {
+      b + 1;
+    });
+
+    
   </script>
 </body>
 
